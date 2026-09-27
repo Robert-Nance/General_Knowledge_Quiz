@@ -63,19 +63,29 @@ questions = [
     }
 ]
 
-"""The quiz picks 3 questions to give the player"""
+"""Ask the player if they want to play again after the quiz is over"""
 
-quiz = random.sample(questions, 3)
+play_again = True
 
-for question in quiz:
-    print(question["question"])
+while play_again:
+    quiz = random.sample(questions, 3)
 
-    for option in question["options"]:
-        print(option)
+    for question in quiz:
+        print(question["question"])
 
-    answer = input("Enter your answer (A, B, C, or D): ").upper()
+        for option in question["options"]:
+            print(option)
 
-    if answer == question["answer"]:
-        print("Correct!")
-    else:
-        print(f"Incorrect! The correct answer is {question['answer']}.")
+        answer = input("Enter your answer (A, B, C, or D): ").upper()
+
+        if answer == question["answer"]:
+            print("Correct!")
+        else:
+            print(f"Incorrect! The correct answer is {question['answer']}.")
+
+    play_again_answer = input("Do you want to play again? (yes/no): ").lower()
+
+    if play_again_answer != "yes":
+        play_again = False
+
+print(f"Thanks for playing, {player_name}!")

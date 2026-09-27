@@ -62,3 +62,20 @@ questions = [
         "answer": "D"
     }
 ]
+
+"""The quiz picks 3 questions to give the player"""
+
+quiz = random.sample(questions, 3)
+
+for question in quiz:
+    print(question["question"])
+
+    for option in question["options"]:
+        print(option)
+
+    answer = input("Enter your answer (A, B, C, or D): ").upper()
+
+    if answer == question["answer"]:
+        print("Correct!")
+    else:
+        print(f"Incorrect! The correct answer is {question['answer']}.")

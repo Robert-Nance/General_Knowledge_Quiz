@@ -1,9 +1,9 @@
+"""General Knowledge Quiz, Robert Nance, This file is a quiz game that randomly selects questions for the player, 09/27/2026"""
+
 
 """the import random allows me to pull random questions from the dictionary of questions"""
 
 import random
-
-"""initialize the quiz with the player's name"""
 
 player_name = input("Enter your name: ")
 print(f"Welcome, {player_name}! Good luck!")
@@ -81,7 +81,7 @@ while play_again:
         if answer == question["answer"]:
             print("Correct!")
         else:
-            print(f"Incorrect! The correct answer is {question['answer']}.")
+            print(f"Incorrect! The answer is {question['answer']}.")
 
     play_again_answer = input("Do you want to play again? (yes/no): ").lower()
 

@@ -3,11 +3,11 @@
 class Player:
     """Represents the player..."""
 
-    def __init__(self, name):
+    def __init__(self, name, correct_answers=0, incorrect_answers=0, games_played=0):
         self.name = name
-        self.correct_answers = 0
-        self.incorrect_answers = 0
-        self.games_played = 0
+        self.correct_answers = correct_answers
+        self.incorrect_answers = incorrect_answers
+        self.games_played = games_played
 
     def record_correct_answer(self):
         """Increment the count of correct answers."""

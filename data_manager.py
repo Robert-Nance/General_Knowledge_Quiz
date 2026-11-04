@@ -34,6 +34,6 @@ def save_player_data(player, filename="quiz_data.json"):
 
         return True
 
-    except OSError:
+    except OSError as error:
         print(f"Unable to save player data: {error}")
         return False

@@ -1,0 +1,12 @@
+{
+    "Robert": {
+        "correct_answers": 2,
+        "incorrect_answers": 1,
+        "games_played": 1
+    },
+    "Garrett": {
+        "correct_answers": 6,
+        "incorrect_answers": 0,
+        "games_played": 2
+    }
+}

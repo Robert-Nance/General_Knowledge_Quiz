@@ -1,15 +1,7 @@
-"""General Knowledge Quiz, Robert Nance, This file is a quiz game that randomly selects questions for the player, 09/27/2026"""
-
-
 """the import random allows me to pull random questions from the dictionary of questions"""
-
 import random
 
-player_name = input("Enter your name: ")
-print(f"Welcome, {player_name}! Good luck!")
-
 """The list of questions the quiz is pulling from"""
-
 questions = [
     {
         "question": "What is the capital of Ohio?", 
@@ -66,30 +58,3 @@ questions = [
 def select_questions(questions_bank, number_of_questions):
     """Randomly select questions from the question bank."""
     return random.sample(questions_bank, number_of_questions)
-
-"""Ask the player if they want to play again after the quiz is over"""
-
-play_again = True
-
-while play_again:
-    quiz = random.sample(questions, 3)
-
-    for question in quiz:
-        print(question["question"])
-
-        for option in question["options"]:
-            print(option)
-
-        answer = input("Enter your answer (A, B, C, or D): ").upper()
-
-        if answer == question["answer"]:
-            print("Correct!")
-        else:
-            print(f"Incorrect! The answer is {question['answer']}.")
-
-    play_again_answer = input("Do you want to play again? (yes/no): ").lower()
-
-    if play_again_answer != "yes":
-        play_again = False
-
-print(f"Thanks for playing, {player_name}!")

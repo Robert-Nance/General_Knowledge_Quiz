@@ -31,7 +31,7 @@ def test_calculate_score():
     assert player.calculate_score() == 3
 
 def test_restore_saved_stats():
-    player = Player("TestPlayer", 5, 2, 3)
-    assert player.correct_answers == 5
-    assert player.incorrect_answers == 2
-    assert player.games_played == 3
+    player = Player("TestPlayer", 8, 4, 4)
+    assert player.correct_answers == 8
+    assert player.incorrect_answers == 4
+    assert player.games_played == 4

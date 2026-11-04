@@ -63,6 +63,10 @@ questions = [
     }
 ]
 
+def select_questions(questions_bank, number_of_questions):
+    """Randomly select questions from the question bank."""
+    return random.sample(questions_bank, number_of_questions)
+
 """Ask the player if they want to play again after the quiz is over"""
 
 play_again = True

@@ -8,7 +8,12 @@ def load_player_data(filename="player_data.json"):
     try:
         with open(filename, "r", encoding="utf-8") as file:
             data = json.load(file)
-            return data
+
+        if not isinstance(data, dict):
+            print("Error: JSON file has an invalid format.")
+            return {}
+        
+        return data
 
     except FileNotFoundError:
         return {}

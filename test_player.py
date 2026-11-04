@@ -28,6 +28,7 @@ def test_calculate_score():
     player = Player("TestPlayer")
     player.record_correct_answer()
     player.record_correct_answer()
+    player.record_correct_answer()
     assert player.calculate_score() == 3
 
 def test_restore_saved_stats():

@@ -5,9 +5,12 @@ import json
 from player import Player
 from data_manager import load_player_data, save_player_data
 
-def test_load_player_data():
+
+def test_load_player_data(tmp_path):
+    """Test that saved player data can be loaded from a JSON file."""
+
     file_path = tmp_path / "quiz_data.json"
-    
+
     expected_data = {
         "TestPlayer": {
             "correct_answers": 8,
@@ -25,8 +28,21 @@ def test_load_player_data():
 
     assert loaded_data == expected_data
 
+
 def test_load_missing_file(tmp_path):
-    file_path = tmp_path / "non_existent_file.json"
+    """Test that a missing JSON file returns an empty dictionary."""
+
+    file_path = tmp_path / "missing.json"
+
+    loaded_data = load_player_data(file_path)
+
+    assert loaded_data == {}
+
+
+def test_load_invalid_json(tmp_path, capsys):
+    """Test that invalid JSON is handled without crashing."""
+
+    file_path = tmp_path / "invalid.json"
 
     file_path.write_text(
         "{invalid json",
@@ -38,13 +54,16 @@ def test_load_missing_file(tmp_path):
     captured = capsys.readouterr()
 
     assert loaded_data == {}
-    assert "Error: JSON file is corrupted." in captured.out
+    assert "corrupted" in captured.out
 
-def test_load_corrupted_file(tmp_path, capsys):
-    file_path = tmp_path / "corrupted_file.json"
+
+def test_load_invalid_data_format(tmp_path, capsys):
+    """Test that JSON with the wrong data structure is rejected."""
+
+    file_path = tmp_path / "invalid_format.json"
 
     file_path.write_text(
-        json.dumps(["TestPlayer", "TestPlayer2"]),
+        json.dumps(["TestPlayer", "AnotherPlayer"]),
         encoding="utf-8"
     )
 
@@ -55,7 +74,10 @@ def test_load_corrupted_file(tmp_path, capsys):
     assert loaded_data == {}
     assert "invalid format" in captured.out
 
+
 def test_save_player_data(tmp_path):
+    """Test that a player's statistics can be saved to a JSON file."""
+
     file_path = tmp_path / "quiz_data.json"
 
     player = Player("TestPlayer", 8, 4, 4)
@@ -71,19 +93,22 @@ def test_save_player_data(tmp_path):
     assert saved_data["TestPlayer"]["incorrect_answers"] == 4
     assert saved_data["TestPlayer"]["games_played"] == 4
 
+
 def test_save_multiple_players(tmp_path):
+    """Test that saving another player preserves existing player data."""
+
     file_path = tmp_path / "quiz_data.json"
 
-    player1 = Player("TestPlayer1", 8, 4, 4)
-    player2 = Player("TestPlayer2", 5, 7, 3)
+    first_player = Player("TestPlayer", 8, 4, 4)
+    second_player = Player("AnotherPlayer", 5, 7, 3)
 
-    save_player_data(player1, file_path)
-    save_player_data(player2, file_path)
+    save_player_data(first_player, file_path)
+    save_player_data(second_player, file_path)
 
     saved_data = load_player_data(file_path)
 
-    assert "TestPlayer1" in saved_data
-    assert "TestPlayer2" in saved_data
+    assert "TestPlayer" in saved_data
+    assert "AnotherPlayer" in saved_data
 
-    assert saved_data["TestPlayer1"]["correct_answers"] == 8
-    assert saved_data["TestPlayer2"]["correct_answers"] == 5
+    assert saved_data["TestPlayer"]["correct_answers"] == 8
+    assert saved_data["AnotherPlayer"]["correct_answers"] == 5

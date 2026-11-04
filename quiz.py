@@ -2,34 +2,46 @@
 from questions import select_questions
 from messages import display_question
 
-def check_answer(player_answer, correct_answer):
-    """Check if the player's answer is correct."""
-    return player_answer.upper() == correct_answer
 
-def run_quiz(question_bank, number_of_questions):
-    """Run the quiz."""
+class Quiz:
+    def __init__(self, question_bank, player, questions_per_round=3):
+        self.question_bank = question_bank
+        self.player = player
+        self.questions_per_round = questions_per_round
+        self.round_score = 0
 
-    quiz_questions = select_questions(
-        question_bank, number_of_questions
-    )
+    def check_answer(self, player_answer, correct_answer):
+        """Check if the player's answer is correct."""
+        return player_answer.upper() == correct_answer
 
-    correct_answers = 0
+    def run_quiz(self):
+        """Run the quiz."""
+        quiz_questions = select_questions(
+            self.question_bank, 
+            self.questions_per_round
+        )
 
-    for question in quiz_questions:
-        display_question(question)
-        answer = input("Enter your answer (A, B, C, or D): ")
+        self.round_score = 0
 
-        if check_answer(answer, question["answer"]):
-            print("Correct!")
-            correct_answers += 1
-        else:
-            print(f"Incorrect! The answer is {question['answer']}.")
+        for question in quiz_questions:
+            display_question(question)
+            
+            answer = input("Enter your answer (A, B, C, or D): ")
 
-    return correct_answers
+            if self.check_answer(answer, question["answer"]):
+                print("Correct!")
+                self.round_score += 1
+                self.player.record_correct_answer()
+            else:
+                print(f"Incorrect! The answer is {question['answer']}.")
+                self.player.record_incorrect_answer()
 
-def play_again():
-    """Ask the player if they want to play again."""
-    answer = input("Do you want to play again? (yes/no): ")
+        self.player.record_games_played()
+        self.player.display_stats()
+        return self.round_score
 
-    return answer == "yes"
+    def display_round_score(self):
+        """Display the score for the current round."""
+        print(f"You got {self.round_score} out of {self.questions_per_round} questions correct.")
+    
 

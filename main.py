@@ -2,25 +2,35 @@
 
 from questions import questions
 from messages import welcome_player, goodbye_player
-from quiz import run_quiz, play_again
+from quiz import Quiz
+from player import Player
 
 def main():
     """Start the quiz."""
 
     player_name = input("Enter your name: ")
+    
+    player = Player(player_name)
+
+    quiz = Quiz(questions, player, 3)
 
     welcome_player(player_name)
 
     play_again = True
 
     while play_again:
-        score = run_quiz(questions, 3)
 
-        print(f"You got {score} out of 3 questions correct.")
+        quiz.run_quiz()
 
-        replay = play_again()
+        quiz.display_round_score()
 
-    goodbye_player(player_name)
+        answer = input("Do you want to play again? (yes/no): ")
+        if answer != "yes":
+            play_again = False
 
+    player.display_stats()
+
+    goodbye_player(player.name)
+        
 if __name__ == "__main__":
     main()

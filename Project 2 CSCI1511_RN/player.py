@@ -1,4 +1,4 @@
-
+"""player.py, Robert Nance, the file for representing the player, 11/04/2026"""
 
 class Player:
     """Represents the player..."""

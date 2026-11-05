@@ -1,4 +1,4 @@
-
+"""main.py, Robert Nance, the main file that will run the quiz game, 11/04/2026"""
 
 from questions import questions
 from messages import welcome_player, goodbye_player

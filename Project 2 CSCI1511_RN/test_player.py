@@ -1,4 +1,4 @@
-
+"""test_player.py, Robert Nance, the file for testing the player class, 11/04/2026"""
 
 from player import Player
 

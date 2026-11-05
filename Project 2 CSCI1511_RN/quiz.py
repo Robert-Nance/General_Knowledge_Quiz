@@ -1,3 +1,5 @@
+"""quiz.py, Robert Nance, the file for managing the quiz logic, 11/04/2026"""
+
 
 from questions import select_questions
 from messages import display_question

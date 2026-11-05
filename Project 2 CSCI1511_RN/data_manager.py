@@ -1,4 +1,4 @@
-
+"""data_manager.py, Robert Nance, the file for managing player data, 11/04/2026"""
 
 import json
 
